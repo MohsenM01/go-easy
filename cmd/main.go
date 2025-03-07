@@ -5,6 +5,7 @@ import (
 	"go-easy/config"
 	"go-easy/infrastructure/cache"
 	"go-easy/infrastructure/database"
+	"go-easy/infrastructure/messaging"
 	httpclient "go-easy/internal/delivery/httpclient"
 	"time"
 )
@@ -22,5 +23,10 @@ func main() {
 	if hybridCache != nil {
 
 	}
+
+	mq := messaging.NewMessageQueue()
+	mq.StartMessageQueue()
+	defer mq.Close()
+
 	api.StartApiServer()
 }
